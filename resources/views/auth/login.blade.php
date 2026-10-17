@@ -47,6 +47,11 @@
         <button type="submit" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-lg shadow-sm transition">
             Masuk ke Sistem
         </button>
+
+        <p class="text-center text-xs text-slate-500 mt-4">
+            Belum punya akun? 
+            <a href="{{ route('register') }}" class="text-indigo-600 hover:underline font-semibold">Daftar Mahasiswa</a>
+        </p>
     </form>
 </div>
 @endsection
