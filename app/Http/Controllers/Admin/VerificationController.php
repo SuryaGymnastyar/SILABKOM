@@ -10,29 +10,39 @@ class VerificationController extends Controller
 {
     public function index()
     {
-        $bookings = RoomBooking::with(['user', 'room'])->latest()->get();
+        $bookings = RoomBooking::with(['user', 'room'])
+            ->where('status', 'Menunggu') 
+            ->latest()
+            ->get();
+
         return view('admin.verifikasi.index', compact('bookings'));
     }
 
     public function approve($id)
     {
         $booking = RoomBooking::findOrFail($id);
-        $booking->update(['status' => 'Disetujui']);
+        $booking->status = 'Disetujui';
+        $booking->save();
 
-        return redirect()->route('admin.verifikasi.index')->with('success', 'Peminjaman berhasil disetujui.');
+        return redirect()->back()->with('success', 'Peminjaman berhasil disetujui.');
     }
 
     public function reject($id)
     {
         $booking = RoomBooking::findOrFail($id);
-        $booking->update(['status' => 'Ditolak']);
+        $booking->status = 'Ditolak';
+        $booking->save();
 
-        return redirect()->route('admin.verifikasi.index')->with('success', 'Peminjaman berhasil ditolak.');
+        return redirect()->back()->with('success', 'Peminjaman berhasil ditolak.');
     }
 
     public function history()
     {
-        $bookings = RoomBooking::with(['user', 'room'])->where('status', '!=', 'Menunggu')->latest()->get();
-        return view('admin.verifikasi.index', compact('bookings'));
+        $bookings = RoomBooking::with(['user', 'room'])
+            ->whereIn('status', ['Disetujui', 'Ditolak']) 
+            ->latest()
+            ->get();
+
+        return view('admin.verifikasi.history', compact('bookings'));
     }
 }
