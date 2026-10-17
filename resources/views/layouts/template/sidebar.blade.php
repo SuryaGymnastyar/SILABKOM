@@ -33,17 +33,15 @@
                 <span>Kelola Lab</span>
             </a>
             <a href="{{ route('admin.verifikasi.index') }}" 
-               class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition {{ request()->routeIs('admin.verifikasi.*') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
+               class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition {{ request()->routeIs('admin.verifikasi.index') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                 <i data-lucide="check-square" class="w-4 h-4"></i>
                 <span>Verifikasi Pinjam</span>
             </a>
-            
             <a href="{{ route('admin.verifikasi.history') }}" 
                class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition {{ request()->routeIs('admin.verifikasi.history') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                 <i data-lucide="clipboard-list" class="w-4 h-4"></i>
                 <span>Riwayat Peminjaman</span>
             </a>
-
             <a href="{{ route('admin.users.index') }}" 
                class="flex items-center gap-3 px-3.5 py-2.5 rounded-lg text-sm font-medium transition {{ request()->routeIs('admin.users.*') ? 'bg-indigo-50 text-indigo-600' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900' }}">
                 <i data-lucide="users" class="w-4 h-4"></i>
