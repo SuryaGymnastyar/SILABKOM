@@ -49,12 +49,13 @@ class ProfileController extends Controller
     {
         $request->validate([
             'current_password' => 'required|string',
-            'password'         => 'required|string|min:8|confirmed',
+            'password'         => 'required|string|min:8|confirmed|different:current_password',
         ], [
             'current_password.required' => 'Kata sandi saat ini wajib diisi.',
             'password.required'         => 'Kata sandi baru wajib diisi.',
             'password.min'              => 'Kata sandi baru minimal 8 karakter.',
             'password.confirmed'        => 'Konfirmasi kata sandi baru tidak sesuai.',
+            'password.different'        => 'Kata sandi baru tidak boleh sama dengan kata sandi saat ini.',
         ]);
 
         $user = Auth::user();

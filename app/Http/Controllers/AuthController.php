@@ -54,18 +54,18 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $validated = $request->validate([
-            'name'     => 'required|string|max:255',
-            'npm'      => 'required|string|numeric|digits_between:8,20|unique:users,npm',
-            'email'    => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
+            'npm'      => ['required', 'numeric', 'digits_between:8,15', 'unique:users,npm'],
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ], [
-            'npm.unique'         => 'NPM sudah terdaftar di sistem.',
-            'email.unique'       => 'Email sudah digunakan.',
+            'npm.numeric'        => 'NPM harus berupa angka.',
+            'npm.digits_between' => 'Panjang NPM harus antara 8 sampai 15 digit.',
+            'npm.unique'         => 'NPM sudah terdaftar.',
             'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
-            'password.min'       => 'Kata sandi minimal 8 karakter.',
         ]);
 
-        $user = User::create([
+        User::create([
             'name'     => $validated['name'],
             'npm'      => $validated['npm'],
             'email'    => $validated['email'],
@@ -73,9 +73,7 @@ class AuthController extends Controller
             'role'     => 'mahasiswa',
         ]);
 
-        Auth::login($user);
-
-        return redirect()->route('dashboard')->with('success', 'Registrasi akun berhasil!');
+        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan masuk menggunakan NPM atau Email Anda.');
     }
 
     // Logout

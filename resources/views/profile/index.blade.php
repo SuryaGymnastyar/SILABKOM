@@ -71,9 +71,14 @@
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Kata Sandi Saat Ini</label>
-                        <input type="password" name="current_password" required placeholder="Masukkan kata sandi saat ini"
-                               class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                        <p class="text-[11px] text-transparent select-none mt-1">Spacer</p> {{-- spacer penyeimbang tinggi --}}
+                        <div class="relative">
+                            <input type="password" id="current_password" name="current_password" required placeholder="Masukkan kata sandi saat ini"
+                                   class="w-full pl-3.5 pr-10 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 @error('current_password') border-rose-500 @enderror">
+                            <button type="button" onclick="togglePasswordVisibility('current_password', 'icon-current')"
+                                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none">
+                                <i id="icon-current" data-lucide="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
                         @error('current_password')
                             <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
                         @enderror
@@ -81,8 +86,14 @@
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Kata Sandi Baru</label>
-                        <input type="password" name="password" required placeholder="Minimal 8 karakter"
-                               class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <div class="relative">
+                            <input type="password" id="new_password" name="password" required placeholder="Minimal 8 karakter"
+                                   class="w-full pl-3.5 pr-10 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 @error('password') border-rose-500 @enderror">
+                            <button type="button" onclick="togglePasswordVisibility('new_password', 'icon-new')"
+                                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none">
+                                <i id="icon-new" data-lucide="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
                         @error('password')
                             <p class="text-xs text-rose-500 mt-1">{{ $message }}</p>
                         @enderror
@@ -90,8 +101,14 @@
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Ulangi Kata Sandi Baru</label>
-                        <input type="password" name="password_confirmation" required placeholder="Konfirmasi kata sandi baru"
-                               class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                        <div class="relative">
+                            <input type="password" id="new_password_confirmation" name="password_confirmation" required placeholder="Konfirmasi kata sandi baru"
+                                   class="w-full pl-3.5 pr-10 py-2.5 bg-white border border-slate-300 rounded-lg text-slate-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            <button type="button" onclick="togglePasswordVisibility('new_password_confirmation', 'icon-confirm')"
+                                    class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none">
+                                <i id="icon-confirm" data-lucide="eye" class="w-4 h-4"></i>
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -104,4 +121,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    function togglePasswordVisibility(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.setAttribute('data-lucide', 'eye-off');
+        } else {
+            input.type = 'password';
+            icon.setAttribute('data-lucide', 'eye');
+        }
+
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }
+</script>
 @endsection

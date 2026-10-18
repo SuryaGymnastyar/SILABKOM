@@ -32,9 +32,15 @@
 
         <div>
             <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kata Sandi</label>
-            <input type="password" name="password" required
-                   placeholder="••••••••"
-                   class="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <div class="relative">
+                <input type="password" id="login-password" name="password" required
+                       placeholder="••••••••"
+                       class="w-full pl-3.5 pr-10 py-2.5 bg-white border border-slate-300 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <button type="button" onclick="togglePassword()"
+                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 focus:outline-none">
+                    <i id="eye-icon" data-lucide="eye" class="w-4 h-4"></i>
+                </button>
+            </div>
         </div>
 
         <div class="flex items-center justify-between text-xs">
@@ -54,4 +60,23 @@
         </p>
     </form>
 </div>
+
+<script>
+    function togglePassword() {
+        const input = document.getElementById('login-password');
+        const icon = document.getElementById('eye-icon');
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.setAttribute('data-lucide', 'eye-off');
+        } else {
+            input.type = 'password';
+            icon.setAttribute('data-lucide', 'eye');
+        }
+
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }
+</script>
 @endsection
