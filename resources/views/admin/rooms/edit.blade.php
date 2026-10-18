@@ -18,23 +18,23 @@
             @csrf
             @method('PUT')
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nama Lab</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nama Lab <span class="text-rose-500">*</span></label>
                 <input type="text" name="name" value="{{ old('name', $room->name) }}" required class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
             </div>
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Lokasi Lab (Gedung/Lantai)</label>
-                <input type="text" name="location" value="{{ old('location', $room->location) }}" class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Lokasi Lab (Gedung/Lantai) <span class="text-rose-500">*</span></label>
+                <input type="text" name="location" value="{{ old('location', $room->location) }}" required class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
             </div>
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Fasilitas Lab</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Fasilitas Lab <span class="text-rose-500">*</span></label>
                 <input type="text" name="facilities" value="{{ old('facilities', $room->facilities ?? $room->facility) }}" required class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
             </div>
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kapasitas (Orang)</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kapasitas (Orang) <span class="text-rose-500">*</span></label>
                 <input type="number" name="capacity" min="1" value="{{ old('capacity', $room->capacity) }}" required class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
             </div>
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kondisi Lab</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kondisi Lab <span class="text-rose-500">*</span></label>
                 <select name="condition" required class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
                     <option value="Baik" {{ old('condition', $room->condition) == 'Baik' ? 'selected' : '' }}>Baik</option>
                     <option value="Perbaikan" {{ old('condition', $room->condition) == 'Perbaikan' ? 'selected' : '' }}>Perbaikan</option>

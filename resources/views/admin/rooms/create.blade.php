@@ -28,27 +28,27 @@
         <form action="{{ route('admin.rooms.store') }}" method="POST" class="p-6 space-y-5">
             @csrf
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nama Lab</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Nama Lab <span class="text-rose-500">*</span></label>
                 <input type="text" name="name" value="{{ old('name') }}" required placeholder="Contoh: Lab Komputer Dasar" class="w-full px-4 py-3 border @error('name') border-rose-500 @else border-slate-200 @enderror rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 @error('name') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Lokasi Lab (Gedung/Lantai)</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Lokasi Lab (Gedung/Lantai) <span class="text-rose-500">*</span></label>
                 <input type="text" name="location" value="{{ old('location') }}" required placeholder="Contoh: Gedung Lab Terpadu Lt. 2" class="w-full px-4 py-3 border @error('location') border-rose-500 @else border-slate-200 @enderror rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 @error('location') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Fasilitas Lab</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Fasilitas Lab <span class="text-rose-500">*</span></label>
                 <input type="text" name="facilities" value="{{ old('facilities') }}" required placeholder="Contoh: AC, Proyektor, 30 PC" class="w-full px-4 py-3 border @error('facilities') border-rose-500 @else border-slate-200 @enderror rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 @error('facilities') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kapasitas (Orang)</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kapasitas (Orang) <span class="text-rose-500">*</span></label>
                 <input type="number" name="capacity" min="1" value="{{ old('capacity') }}" required placeholder="Contoh: 30" class="w-full px-4 py-3 border @error('capacity') border-rose-500 @else border-slate-200 @enderror rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
                 @error('capacity') <p class="text-rose-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
             <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kondisi Lab</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Kondisi Lab <span class="text-rose-500">*</span></label>
                 <select name="condition" required class="w-full px-4 py-3 border @error('condition') border-rose-500 @else border-slate-200 @enderror rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-white">
                     <option value="" disabled {{ old('condition') == '' ? 'selected' : '' }}>-- Pilih Kondisi Lab --</option>
                     <option value="Baik" {{ old('condition') == 'Baik' ? 'selected' : '' }}>Baik</option>

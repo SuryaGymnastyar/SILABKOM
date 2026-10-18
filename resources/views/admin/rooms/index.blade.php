@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="space-y-6">
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl font-bold text-slate-800">Kelola Ruangan Lab</h1>
             <p class="text-slate-500 text-sm mt-0.5">Tambah, ubah, dan atur daftar laboratorium yang tersedia.</p>
@@ -15,54 +15,64 @@
         </div>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-slate-50/80 text-slate-500 text-xs uppercase font-semibold border-b border-slate-200/80">
-                        <th class="p-4">Nama Lab</th>
-                        <th class="p-4">Lokasi</th>
-                        <th class="p-4">Fasilitas</th>
-                        <th class="p-4">Kapasitas</th>
-                        <th class="p-4">Kondisi</th>
-                        <th class="p-4 text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100 text-sm text-slate-700">
-                    @forelse($rooms as $room)
-                    <tr class="hover:bg-slate-50/80 transition">
-                        <td class="p-4 font-semibold text-slate-800">{{ $room->name }}</td>
-                        <td class="p-4 text-slate-600">{{ $room->location ?? '-' }}</td>
-                        <td class="p-4 text-slate-600">{{ $room->facilities ?? $room->facility ?? '-' }}</td>
-                        <td class="p-4 text-slate-600">{{ $room->capacity ?? 0 }} Orang</td>
-                        <td class="p-4">
-                            <span class="inline-flex items-center px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md font-medium text-xs border border-emerald-200/60">
-                                {{ $room->condition ?? 'Baik' }}
-                            </span>
-                        </td>
-                        <td class="p-4 text-center">
-                            <div class="flex items-center justify-center space-x-2">
-                                <a href="{{ route('admin.rooms.edit', $room->id) }}" class="px-3 py-1.5 bg-amber-50 text-amber-600 border border-amber-200 rounded-lg text-xs font-semibold hover:bg-amber-100 transition">
-                                    Edit
-                                </a>
-                                <form action="{{ route('admin.rooms.destroy', $room->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus lab ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="px-3 py-1.5 bg-rose-50 text-rose-600 border border-rose-200 rounded-lg text-xs font-semibold hover:bg-rose-100 transition">
-                                        Hapus
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="6" class="p-8 text-center text-slate-400">Belum ada data ruangan lab.</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @forelse($rooms as $room)
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md transition flex flex-col justify-between overflow-hidden">
+            <div class="p-6 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <span class="inline-flex items-center px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md font-medium text-xs border border-emerald-200/60">
+                        {{ $room->condition ?? 'Baik' }}
+                    </span>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800">{{ $room->name }}</h3>
+                    <div class="flex items-center gap-1.5 text-xs text-slate-500 mt-1">
+                        <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span>{{ $room->location ?? '-' }}</span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-xs text-slate-500 mt-1">
+                        <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                        <span>Kapasitas {{ $room->capacity ?? 0 }} orang</span>
+                    </div>
+                </div>
+
+                <div class="pt-2 border-t border-slate-100">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Fasilitas</p>
+                    <p class="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                        {{ $room->facilities ?? $room->facility ?? '-' }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-4 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between gap-3">
+                <a href="{{ route('admin.rooms.edit', $room->id) }}" class="flex-1 py-2 text-center bg-amber-50 text-amber-600 border border-amber-200 rounded-xl text-xs font-semibold hover:bg-amber-100 transition">
+                    Edit
+                </a>
+                <form action="{{ route('admin.rooms.destroy', $room->id) }}" method="POST" class="flex-1" onsubmit="return confirm('Apakah Anda yakin ingin menghapus lab ini?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="w-full py-2 text-center bg-rose-50 text-rose-600 border border-rose-200 rounded-xl text-xs font-semibold hover:bg-rose-100 transition">
+                        Hapus
+                    </button>
+                </form>
+            </div>
         </div>
+        @empty
+        <div class="col-span-full bg-white p-12 rounded-2xl border border-slate-200/80 text-center text-slate-400">
+            Belum ada data ruangan lab.
+        </div>
+        @endforelse
     </div>
 </div>
 @endsection
