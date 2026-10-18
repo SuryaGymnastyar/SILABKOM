@@ -25,18 +25,6 @@
         </div>
     </div>
 
-    @if(session('success'))
-        <div class="p-3 bg-emerald-100 text-emerald-800 rounded-lg text-xs font-medium">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="p-3 bg-rose-100 text-rose-800 rounded-lg text-xs font-medium">
-            {{ session('error') }}
-        </div>
-    @endif
-
     <!-- Tabel Pengguna -->
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         <table class="w-full text-left text-sm text-slate-600">
