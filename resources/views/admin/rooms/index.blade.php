@@ -14,6 +14,12 @@
         </a>
     </div>
 
+    @if(session('error'))
+        <div class="p-3 bg-rose-100 text-rose-800 rounded-xl text-xs font-medium">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($rooms as $room)
             @php

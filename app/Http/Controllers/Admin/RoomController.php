@@ -56,7 +56,14 @@ class RoomController extends Controller
 
     public function destroy(Room $room)
     {
+        if ($room->bookings()->exists()) {
+            return redirect()->route('admin.rooms.index')
+                ->with('error', "{$room->name} tidak dapat dihapus karena tercatat dalam riwayat peminjaman.");
+        }
+
         $room->delete();
-        return redirect()->route('admin.rooms.index')->with('success', 'Lab berhasil dihapus.');
+
+        return redirect()->route('admin.rooms.index')
+            ->with('success', 'Lab berhasil dihapus.');
     }
 }
