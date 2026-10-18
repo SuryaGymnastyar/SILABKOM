@@ -22,4 +22,18 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Pengguna berhasil dijadikan Admin.');
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Mencegah admin menghapus dirinya sendiri
+        if ($user->id === auth()->id()) {
+            return redirect()->back()->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
+        }
+
+        $user->delete();
+
+        return redirect()->back()->with('success', 'Pengguna berhasil dihapus.');
+    }
 }

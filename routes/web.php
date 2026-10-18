@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
         // Kelola Pengguna
         Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
         Route::patch('/users/{id}/promote', [AdminUserController::class, 'promoteToAdmin'])->name('users.promote');
+        Route::delete('/users/{id}', [AdminUserController::class, 'destroy'])->name('users.destroy');
 
         // Riwayat Peminjaman
         Route::get('/verifikasi/riwayat', [AdminVerificationController::class, 'history'])->name('verifikasi.history');
