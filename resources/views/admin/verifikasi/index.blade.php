@@ -9,12 +9,6 @@
         <p class="text-xs text-slate-500 mt-1">Verifikasi pengajuan peminjaman laboratorium dari mahasiswa.</p>
     </div>
 
-    @if(session('success'))
-        <div class="p-3 bg-emerald-100 text-emerald-800 rounded-lg text-xs font-medium">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <!-- Tabel Verifikasi -->
     <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
         <table class="w-full text-left border-collapse">
@@ -86,7 +80,7 @@
         </table>
     </div>
 
-    <!-- Modal Konfirmasi Setujui (Vanilla JS) -->
+    <!-- Modal Konfirmasi Setujui -->
     <div id="approveModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 max-w-sm w-full mx-4 space-y-4">
             <h3 class="text-lg font-bold text-slate-800">Setujui Peminjaman</h3>
@@ -104,7 +98,7 @@
         </div>
     </div>
 
-    <!-- Modal Konfirmasi Tolak (Vanilla JS) -->
+    <!-- Modal Konfirmasi Tolak -->
     <div id="rejectModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 max-w-sm w-full mx-4 space-y-4">
             <h3 class="text-lg font-bold text-slate-800">Tolak Peminjaman</h3>

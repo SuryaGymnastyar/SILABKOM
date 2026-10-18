@@ -3,7 +3,6 @@
 
 @section('content')
 <div class="space-y-6">
-    <!-- Header Page & Action Button -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl font-bold text-slate-800">Riwayat Peminjaman Saya</h1>
@@ -15,13 +14,6 @@
         </a>
     </div>
 
-    @if(session('success'))
-        <div class="p-3 bg-emerald-100 text-emerald-800 rounded-xl text-xs font-medium">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    <!-- Cards Ringkasan Statistik -->
     @php
         $totalAll = $bookings->count();
         $totalPending = $bookings->whereIn('status', ['Menunggu', 'Pending', 'menunggu', 'pending'])->count();
@@ -30,7 +22,6 @@
     @endphp
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Card Total Pengajuan -->
         <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
             <div>
                 <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Pengajuan</p>
@@ -43,7 +34,6 @@
             </div>
         </div>
 
-        <!-- Card Menunggu -->
         <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
             <div>
                 <p class="text-[10px] font-bold text-amber-600 uppercase tracking-wider">Menunggu</p>
@@ -56,7 +46,6 @@
             </div>
         </div>
 
-        <!-- Card Disetujui -->
         <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
             <div>
                 <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Disetujui</p>
@@ -69,7 +58,6 @@
             </div>
         </div>
 
-        <!-- Card Ditolak -->
         <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
             <div>
                 <p class="text-[10px] font-bold text-rose-600 uppercase tracking-wider">Ditolak</p>
@@ -83,7 +71,6 @@
         </div>
     </div>
 
-    <!-- Filter & Search Section -->
     <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-6">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
@@ -92,7 +79,6 @@
             </div>
 
             <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-                <!-- Dropdown Filter Status -->
                 <select id="mhsFilterStatus" onchange="filterMhsBookingList()" class="bg-white border border-slate-200 rounded-xl text-xs py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-sm">
                     <option value="all">Semua Status</option>
                     <option value="menunggu">Menunggu</option>
@@ -100,7 +86,6 @@
                     <option value="ditolak">Ditolak</option>
                 </select>
 
-                <!-- Search Input Box -->
                 <div class="relative flex-1 sm:w-64">
                     <input 
                         type="text" 
@@ -116,7 +101,6 @@
             </div>
         </div>
 
-        <!-- List Card Pengajuan -->
         <div class="space-y-4">
             @forelse($bookings as $booking)
                 @php
@@ -134,7 +118,7 @@
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 v5m-4 0h4"/>
                                 </svg>
                             </div>
                             <div>
@@ -143,7 +127,6 @@
                             </div>
                         </div>
 
-                        <!-- Status Badge -->
                         <div>
                             @if($normSt === 'disetujui')
                                 <span class="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">Disetujui</span>
@@ -170,7 +153,6 @@
                         </div>
                     </div>
 
-                    <!-- Tombol Aksi (Hanya jika status 'Menunggu') -->
                     @if($normSt === 'menunggu')
                         <div class="pt-3 border-t border-slate-100 flex items-center justify-end gap-2">
                             <a href="{{ route('mahasiswa.booking.edit', $booking->id) }}" class="px-3.5 py-1.5 bg-amber-50 text-amber-600 border border-amber-200 rounded-xl text-xs font-semibold hover:bg-amber-100 transition">
@@ -191,7 +173,6 @@
         </div>
     </div>
 
-    <!-- Modal Konfirmasi Batalkan Peminjaman -->
     <div id="cancelBookingModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-100 p-6 max-w-sm w-full mx-4 space-y-4">
             <h3 class="text-lg font-bold text-slate-800">Batalkan Peminjaman</h3>
